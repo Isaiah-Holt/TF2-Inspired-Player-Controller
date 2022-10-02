@@ -1,0 +1,25 @@
+[remap]
+
+importer="texture_array"
+type="TextureArray"
+path="res://.import/Texture.png-a03d27a812b035bdf5eb21e5567a4edd.texarr"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://2Fort/Texture.png"
+dest_files=[ "res://.import/Texture.png-a03d27a812b035bdf5eb21e5567a4edd.texarr" ]
+
+[params]
+
+compress/mode=0
+compress/no_bptc_if_rgb=false
+flags/repeat=1
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=2
+slices/horizontal=3
+slices/vertical=3
