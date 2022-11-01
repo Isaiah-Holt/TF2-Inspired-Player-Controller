@@ -1,7 +1,6 @@
 extends KinematicBody
 
-onready var head: Spatial = $Head
-onready var eyes: Camera = $Head/Eyes
+onready var eyes: Camera = $Eyes
 
 var sensitivity: float = 3.0
 var gravity: float = 15.0
@@ -15,14 +14,15 @@ var velocity: Vector3
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	head.set_as_toplevel(true)
+	eyes.set_as_toplevel(true)
 
 func _process(_delta: float) -> void:
-	head.translation = get_global_transform_interpolated().translated(Vector3(0.0, 1.3, 0.0)).origin
+	eyes.translation = get_global_transform_interpolated().translated(Vector3(0.0, 1.3, 0.0)).origin
 
 func _physics_process(delta: float) -> void:
+	var eyes_yaw: Basis = Basis(Vector3.UP, eyes.rotation.y)
 	var move_input: Vector2 = Input.get_vector("Left", "Right", "Forward", "Backward")
-	var direction: Vector3 = (head.transform.basis.x * move_input.x + head.transform.basis.z * move_input.y).normalized()
+	var direction: Vector3 = (eyes_yaw.x * move_input.x + eyes_yaw.z * move_input.y).normalized()
 	var snap: Vector3 = Vector3.ZERO
 	
 	if is_on_floor():
@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		head.rotation_degrees.y = wrapf(head.rotation_degrees.y - event.relative.x * sensitivity * 0.022, -180.0, 180.0)
+		eyes.rotation_degrees.y = wrapf(eyes.rotation_degrees.y - event.relative.x * sensitivity * 0.022, -180.0, 180.0)
 		eyes.rotation_degrees.x = clamp(eyes.rotation_degrees.x - event.relative.y * sensitivity * 0.022, -89.0, 89.0)
 	
 	if event is InputEventKey and event.is_pressed():
